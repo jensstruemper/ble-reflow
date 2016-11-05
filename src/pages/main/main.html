@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Hotplate
+    </ion-title>
+    <ion-buttons end>
+      <button *ngIf="state=='Disconnected' || state=='idle' || state=='Scanning Stopped'" outline (click) = "scan()">
+        <ion-icon name='bluetooth' is-active="false"> </ion-icon>
+        Scan
+      </button>
+      <button *ngIf="state=='Connected'" outline (click) = "disconnect()">
+        <ion-icon name='bluetooth' is active="false"> </ion-icon>
+        Disconnect
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+  <!--    <ion-card-header>
+        Control
+      </ion-card-header> -->
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-50> Status: {{state}} </ion-col>
+          <ion-col width-50> Profile: {{profile}} </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-33 align="left">
+            <button  ion-button color="secondary" outline (click)="startProcess()">
+              Start
+            </button>
+          </ion-col>
+          <ion-col width-33 align="center">
+            <button  ion-button color="danger" outline (click)="stopProcess()">
+              Stop
+            </button>
+          </ion-col>
+          <ion-col width-33 align="right">
+            <button  ion-button color="default" outline (click)="profileSelect()">
+              Profile
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+<!-- 
+  <ReflowChart> </ReflowChart>-->
+ 
+  <ion-card>
+    <ion-card-content>
+      <p>Temp:  {{reflowTemp}} </p>
+      <p>State: {{reflowState}} </p>
+      <p>Time:  {{reflowTime}} </p>
+      <p>PID:   {{reflowPID}} </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
