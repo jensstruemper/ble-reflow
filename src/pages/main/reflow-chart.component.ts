@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { ChartType } from 'angular2-chartist';
 import * as Chartist from 'chartist';
-//import {IONIC_DIRECTIVES} from 'ionic-angular';
 
 export interface liveData {
-  //labels: Array<Array<string>>;
   labels: string[];
   series: Array<Array<string>>;
 }
@@ -14,7 +12,8 @@ export interface profileData {
 }
 
 @Component({
-selector: 'component-chart',
+selector: 'component-chart-reflow',
+
 template: `<ion-card>
             <ion-card-content>
               <x-chartist
@@ -23,8 +22,14 @@ template: `<ion-card>
                 [options]="options">
               </x-chartist>
             </ion-card-content>
-          </ion-card>`
-})
+          </ion-card>`})
+
+// template: `<x-chartist
+//                 [data]="lData"
+//                 [type]="type"
+//                 [options]="options">
+//               </x-chartist>`
+//       })
 
 export class ReflowChart {
 
@@ -58,23 +63,29 @@ export class ReflowChart {
     };
 
     this.options = {
-      heigth: 200,
+      heigth: 250,
       fullWidth: true,
       lineSmooth: Chartist.Interpolation.cardinal({
-            fillHoles: false,
+            fillHoles: true,
       }),
+      axisX: {
+        labelInterpolationFnc: function(value, index) {
+        return index % 30 === 0 ?  + value : null;
+        }
+      },
       chartPadding: {
         right: 10,
-        left: 10
+        left: -20
       },
+      
     }
-
+    this.populateData(301);
   } // constructor end
 
   populateData(n){
       for (let i=0; i<n; i++){
         this.lData.labels.push(i.toString());
-        var match = "";
+        var match = null;
         var flag = 0;
         var me = this;
         for (let prop in this.pData){
@@ -85,14 +96,14 @@ export class ReflowChart {
                     flag = 1;
                 }
                 if (flag != 1){
-                    match = "";
+                    match = null;
                 }
             }
         }
         me.lData.series[0].push(match);
       }
       console.log(JSON.stringify(me.lData));
-      this.addLiveData();       //to be removed!
+     // this.addLiveData();       //to be removed!
    }  
 
   addLiveData(){   //to be replaced by real logic

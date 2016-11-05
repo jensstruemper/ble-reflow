@@ -24,8 +24,8 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col width-50> Status: {{state}} </ion-col>
-          <ion-col width-50> Profile: {{profile}} </ion-col>
+          <ion-col width-50 align="left"> <b>Status:</b> {{state}} </ion-col>
+          <ion-col width-50 align="right"> <b>Profile:</b> {{profile}}  </ion-col>
         </ion-row>
       </ion-grid>
       <ion-grid>
@@ -49,15 +49,15 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-<!-- 
-  <ReflowChart> </ReflowChart>-->
+ 
+  <component-chart-reflow> </component-chart-reflow>
  
   <ion-card>
     <ion-card-content>
-      <p>Temp:  {{reflowTemp}} </p>
-      <p>State: {{reflowState}} </p>
-      <p>Time:  {{reflowTime}} </p>
-      <p>PID:   {{reflowPID}} </p>
+      <p><b>Temp: </b> {{reflowTemp}} </p>
+      <p><b>State:</b> {{reflowState}} </p>
+      <p><b>Time: </b> {{reflowTime}} </p>
+      <p><b>PID:  </b> {{reflowPID}} </p>
     </ion-card-content>
   </ion-card>
 </ion-content>

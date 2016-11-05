@@ -2,7 +2,6 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { BleComms } from '../../providers/blecomms';
 import { Scan } from '../scan/scan';
-//import { Chart } from '..main/chart';
 
 @Component({
 selector: 'page.main',
