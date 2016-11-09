@@ -4,7 +4,7 @@
       Hotplate
     </ion-title>
     <ion-buttons end>
-      <button *ngIf="state=='Disconnected' || state=='idle' || state=='Scanning Stopped'" outline (click) = "scan()">
+      <button *ngIf="state=='No Connect' || state=='Idle' || state=='No Scanning'" outline (click) = "scan()">
         <ion-icon name='bluetooth' is-active="false"> </ion-icon>
         Scan
       </button>
@@ -30,7 +30,7 @@
       </ion-grid>
       <ion-grid>
         <ion-row>
-          <ion-col width-33 align="left">
+          <ion-col width-33 align="center">
             <button  ion-button color="secondary" outline (click)="startProcess()">
               Start
             </button>
@@ -40,7 +40,7 @@
               Stop
             </button>
           </ion-col>
-          <ion-col width-33 align="right">
+          <ion-col width-33 align="center">
             <button  ion-button color="default" outline (click)="profileSelect()">
               Profile
             </button>
@@ -54,10 +54,18 @@
  
   <ion-card>
     <ion-card-content>
-      <p><b>Temp: </b> {{reflowTemp}} </p>
-      <p><b>State:</b> {{reflowState}} </p>
-      <p><b>Time: </b> {{reflowTime}} </p>
-      <p><b>PID:  </b> {{reflowPID}} </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col width=50 align="left">
+            <p><b>Temp: </b> {{reflowTemp}} </p>
+            <p><b>State:</b> {{reflowState}} </p>
+          </ion-col>
+          <ion-col width=50 align="left">
+            <p><b>Time: </b> {{reflowTime}} </p>
+            <p><b>PID:  </b> {{reflowPID}} </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>

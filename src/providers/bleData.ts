@@ -25,7 +25,6 @@ export class bleData{
     evalBleData(rawData){
         let validData = this.fillBuffer(rawData);
         let evalData = this.evalReflowData(validData);
-        console.log("evalData: " + JSON.stringify(evalData));
         return evalData;
     }
 

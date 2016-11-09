@@ -8,7 +8,7 @@ import { BleComms } from '../../providers/blecomms'
 export class Scan {
   //private nav: NavController = null;
   public device_list: any;
-  public state: any = 'isScanning';
+  public state: any = 'Scanning';
 
   static get parameters(){
     return [[NavController], [BleComms]]

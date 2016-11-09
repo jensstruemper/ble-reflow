@@ -10,7 +10,7 @@ templateUrl: './main.html'
 
 export class Main {
   public bleDataObj: any
-  public state: any = 'idle';
+  public state: any = 'Idle';
   public profile: any = 'Default';
   public reflowTemp: any = '-- °C';  //Reflow data variables
   public reflowState: any = '--';
@@ -26,7 +26,7 @@ export class Main {
           .subscribe(state => {
             this.state = state;
             this.cd.detectChanges();
-            if (state == 'disConnected'){
+            if (state == 'No Connect'){
               this.setReflowVars('disconnect');
             }
           })
@@ -35,6 +35,7 @@ export class Main {
           .subscribe(data => {
             this.bleDataObj = data;
             this.setReflowVars(this.bleDataObj);
+
             this.cd.detectChanges();
           });
    }

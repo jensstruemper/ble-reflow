@@ -37,7 +37,7 @@ export class BleComms {
     else if (_state == 'Connected'){
       this.state_Observer.next(_state);
     }
-    else if (_state == 'Discntd'){
+    else if (_state == 'No Connect'){
       this.state_Observer.next(_state);
     }
     else if (_state == 'No Scanning'){
@@ -85,7 +85,7 @@ export class BleComms {
           });
         },
         error => {console.log("Error Connecting" + (error));
-        this.appState('Discntd');
+        this.appState('No Connect');
     })
   }
     
@@ -94,7 +94,7 @@ export class BleComms {
     BLE.isConnected(this.device.id).then(
       ()=> {BLE.write(this.device.id, this.bleUART, this.TXD, _data);
             console.log("Data written")},
-      ()=> {console.log("Not Connected")}
+      ()=> {console.log("No Connect")}
     );
   }
 
@@ -107,7 +107,7 @@ export class BleComms {
   }
 
   disconnect() {
-    BLE.disconnect(this.connectedDevice).then(data => this.appState('Discntd'))
+    BLE.disconnect(this.connectedDevice).then(data => this.appState('No Connect'))
   }
 
   bleDataStub(){
