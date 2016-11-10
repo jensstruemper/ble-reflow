@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { ChartType, ChartEvent } from 'angular2-chartist';
+import { ChartType } from 'angular2-chartist';
 import * as Chartist from 'chartist';
 import { BleComms } from '../../providers/blecomms';
 
@@ -15,7 +15,7 @@ export interface profileData {
 @Component({
 selector: 'component-chart-reflow',
 
-template: `<ion-card>
+template: `<ion-card id="chart-css">
             <ion-card-content>
               <x-chartist
                 [data]="lData"
@@ -28,7 +28,6 @@ template: `<ion-card>
 export class ReflowChart {
 
   private options : any;
-  private events: ChartEvent;
   private type : ChartType;
 //  private lData : liveData;
   private lData : any; 
@@ -47,6 +46,7 @@ export class ReflowChart {
   } // constructor end
 
   ngOnInit(){
+    console.time("setupChart");
     this.type = 'Line';
 
       this.pData = {
@@ -81,7 +81,7 @@ export class ReflowChart {
           }
         },
         chartPadding: {
-          right: 10,
+          right: 15,
           left: -10,
           top: -10,
           bottom: -10
@@ -101,11 +101,12 @@ export class ReflowChart {
       
       this.populateData(301);
       //this.addLiveDataStub();
-    
+      console.timeEnd("setupChart");
 
   }
 
   populateData(n){
+    console.time("populateData");
       for (let i=0; i<n; i++){
         this.lData.labels.push(i.toString());
         var match = null;
@@ -127,73 +128,31 @@ export class ReflowChart {
         //me.lData.series[1].push('120');
       }
       console.log(JSON.stringify(me.lData));
-     
+     console.timeEnd("populateData");
    }  
 
 
   addLiveDataStub(){
      setInterval(() => {
-        //this.lData.series[1][this.counter] = "120";
-       // Object.keys(this.lData.series).forEach(function(key){
-        //  if (key == '0'){
-            this.lData.series[1].data[this.counter] = "100";
-            console.log("data: " + JSON.stringify(this.lData));
-            this.counter++
-            if (this.counter === 300){
-                this.counter = 0;
-            }
-
-          
-    
-//  })
-        
-       // this.lData = Object.assign({}, this.lData);
-        // this.events= {
-        //   draw(lData: liveData): void {
-        //   console.log(lData);
-        
-        //     }
-        //   }
-        // if(this.counter == 300){
-        //   this.counter = 0; 
-            
-        // } 
-        // console.log("added livedata: " + JSON.stringify(this.lData) );
-     
+          this.lData.series[1].data[this.counter] = "100";
+          console.log("data: " + JSON.stringify(this.lData));
+          this.counter++
+          if (this.counter === 300){
+              this.counter = 0;
+          }
      },1000);
   }
 
-  addLiveData(bleData){   //to be replaced by real logica
-   
-    //var liveData = this.bleDataObj
-        
-    // {
-    //   "1" : "22",
-    //   "2" : "25",
-    //   "3" : "28",
-    //   "5" : "40"
-    // }
-    // var me = this;
-    // this.lData.labels.forEach(function(label){
-    //   console.log("label: " + label +' '+ label[0] + ' ' + bleData.Time);
-
-  //    Object.keys(liveData).forEach(function(key){
+  addLiveData(bleData){  
     if (bleData.Time >= 0 && bleData.Time <= 300){
-        let index:number = bleData.Time;
-       // this.lData.series[1][index] = bleData.Temp;
-        this.lData.series[1].data[index] = bleData.Temp;
-        this.lData = Object.assign({}, this.lData);
-            console.log("data: " + JSON.stringify(this.lData));
-           
-
-
+      let index:number = bleData.Time;
+      this.lData.series[1].data[index] = bleData.Temp;
+      this.lData = Object.assign({}, this.lData);
+      console.log("data: " + JSON.stringify(this.lData));        
     }
-      //     if (label[0] == bleData.Time ){
-      //       console.log("if");
-      //         me.lData.series[1][label[0]] = bleData.Temp;
-      //         console.log("add data to chart " + bleData.Temp);
-      //     }
-      // });
-    
+    if (bleData.Time == 0){
+      this.lData.series[1].data.length = 0;
+    }
+
   }
 }//class

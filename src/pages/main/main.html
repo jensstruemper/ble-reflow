@@ -4,7 +4,7 @@
       Hotplate
     </ion-title>
     <ion-buttons end>
-      <button *ngIf="state=='No Connect' || state=='Idle' || state=='No Scanning'" outline (click) = "scan()">
+      <button *ngIf="state=='NoConnect' || state=='Idle'" outline (click) = "scan()">
         <ion-icon name='bluetooth' is-active="false"> </ion-icon>
         Scan
       </button>

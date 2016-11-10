@@ -1,0 +1,30 @@
+
+.ct-series-a .ct-line
+ {
+  stroke-width: 3px;
+}
+
+.ct-series-a .ct-point {
+  stroke-width: 7px;
+  
+}
+.ct-series-b .ct-line,
+.ct-series-b .ct-point {
+  stroke-width: 3px;
+  stroke: #0544d3;
+  
+}
+
+// .ct-series {
+//       &.ct-series-b {
+//         .ct-line {
+//           stroke-dasharray: 5px;
+          
+//           @include animation(dashoffset, 1s linear infinite);
+//         }
+        
+//         .ct-point {
+//           @include animation(bouncing-stroke, 0.6s linear infinite);
+//         }
+//       }
+// }
