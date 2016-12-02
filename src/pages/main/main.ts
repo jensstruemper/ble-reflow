@@ -26,8 +26,8 @@ export class Main {
           .subscribe(state => {
             this.state = state;
             this.cd.detectChanges();
-            if (state == 'No Connect'){
-              this.setReflowVars('disconnect');
+            if (state == 'NoConnect'){
+              this.setReflowVars(-1);
             }
           })
 
@@ -35,18 +35,17 @@ export class Main {
           .subscribe(data => {
             this.bleDataObj = data;
             this.setReflowVars(this.bleDataObj);
-
             this.cd.detectChanges();
           });
    }
   
   startProcess(){
     console.log("pressed start");
-    this.blecomms.writeData("START");
+    this.blecomms.writeData('START');
   }
 
   stopProcess(){
-    this.blecomms.writeData("STOP");
+    this.blecomms.writeData('STOP');
   }
 
   profileSelect(){
@@ -62,14 +61,14 @@ export class Main {
   }
 
   setReflowVars(dataObj) {
-    if (dataObj == 'disconnect'){
+    if (dataObj.Status == 'Not Valid' || this.state == 'NoConnect'){
       this.reflowTemp = '-- °C';
       this.reflowState = '--';
       this.reflowTime = '-- sec';
       this.reflowPID =  '-- %';
     } 
     else {
-      this.reflowTemp = dataObj.Temp + ' °c';
+      this.reflowTemp = dataObj.Temp + ' °C';
       this.reflowState = dataObj.State;
       this.reflowTime = dataObj.Time + ' sec';
       this.reflowPID = dataObj.PID + ' %'; 

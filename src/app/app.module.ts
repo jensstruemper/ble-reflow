@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Main } from '../pages/main/main';
 import { Scan } from '../pages/scan/scan';
@@ -26,6 +26,6 @@ import { ReflowChart } from '../pages/main/reflow-chart.component';
     Scan,
     ReflowChart
   ],
-  providers: [BleComms, bleData]
+  providers: [BleComms, bleData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

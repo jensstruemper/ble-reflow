@@ -3,6 +3,7 @@ import { BLE } from 'ionic-native';
 import { Observable, Observer } from 'rxjs';
 import { bleData } from './bleData';
 
+
 @Injectable()
 export class BleComms {
   private device_list: any = [];
@@ -40,7 +41,7 @@ export class BleComms {
     else if (_state == 'NoConnect'){
       this.state_Observer.next(_state);
     }
-    else if (_state == 'idle'){
+    else if (_state == 'Idle'){
       this.state_Observer.next(_state);
     }
     else {
@@ -78,6 +79,8 @@ export class BleComms {
           BLE.startNotification(device.id, this.bleUART, this.RXD).subscribe(
             buffer => {this.rawData = String.fromCharCode.apply(null, new Uint8Array(buffer));
               this.appState('Connected');
+              console.log("Raw JSON Data: " + JSON.stringify(this.rawData) + "Raw Data Length: " + this.rawData.length);
+               console.log("Raw Data: " + this.rawData + "Raw Data Length: " + this.rawData.length);
               this.bleDataObj=this.bledata.evalBleData(this.rawData);
               this.notify_Observer.next(this.bleDataObj);    
             },
@@ -93,7 +96,7 @@ export class BleComms {
     let _data = this.stringToBytes(data);
     BLE.isConnected(this.device.id).then(
       ()=> {BLE.write(this.device.id, this.bleUART, this.TXD, _data);
-            console.log("Data written")},
+            console.log("Data written: " + String.fromCharCode.apply(null, new Uint8Array(_data)))},
       ()=> {console.log("NoConnect")}
     );
   }

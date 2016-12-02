@@ -1,6 +1,11 @@
-.vertical-align-content > *
-{
-     display: flex!important;
-     align-content: center!important;
-     align-items: center!important;
+.spinner {
+    display: block;
+    margin: auto;
+  }
+.spinnerCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: 100%;
 }

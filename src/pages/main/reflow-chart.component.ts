@@ -34,6 +34,7 @@ export class ReflowChart {
   private pData : profileData;
   private bleDataObj: any;
   private counter = 0;
+  private state : any;
   
 
   constructor (private blecomms : BleComms, private cd:ChangeDetectorRef){
@@ -43,10 +44,11 @@ export class ReflowChart {
             this.addLiveData(this.bleDataObj);
             this.cd.detectChanges();
           });
+     
   } // constructor end
 
   ngOnInit(){
-    console.time("setupChart");
+    //console.time("setupChart");
     this.type = 'Line';
 
       this.pData = {
@@ -101,12 +103,20 @@ export class ReflowChart {
       
       this.populateData(301);
       //this.addLiveDataStub();
-      console.timeEnd("setupChart");
+
+      this.blecomms.app_state$  //delete live Data when state is "NoConnect"
+          .subscribe(state => {
+            this.state = state;
+            this.cd.detectChanges();
+            if (state == 'NoConnect'){
+              this.lData.series[1].data.length = 0;
+            }
+          })
 
   }
 
   populateData(n){
-    console.time("populateData");
+   // console.time("populateData");
       for (let i=0; i<n; i++){
         this.lData.labels.push(i.toString());
         var match = null;
@@ -127,15 +137,15 @@ export class ReflowChart {
         me.lData.series[0].data.push(match);
         //me.lData.series[1].push('120');
       }
-      console.log(JSON.stringify(me.lData));
-     console.timeEnd("populateData");
+      //console.log(JSON.stringify(me.lData));
+   //  console.timeEnd("populateData");
    }  
 
 
   addLiveDataStub(){
      setInterval(() => {
           this.lData.series[1].data[this.counter] = "100";
-          console.log("data: " + JSON.stringify(this.lData));
+       //   console.log("data: " + JSON.stringify(this.lData));
           this.counter++
           if (this.counter === 300){
               this.counter = 0;
@@ -148,11 +158,13 @@ export class ReflowChart {
       let index:number = bleData.Time;
       this.lData.series[1].data[index] = bleData.Temp;
       this.lData = Object.assign({}, this.lData);
-      console.log("data: " + JSON.stringify(this.lData));        
+   //   console.log("data: " + JSON.stringify(this.lData));        
     }
     if (bleData.Time == 0){
       this.lData.series[1].data.length = 0;
     }
-
+  }
+  deleteLiveData(){
+    this.lData.series[1].data.length = 0;
   }
 }//class

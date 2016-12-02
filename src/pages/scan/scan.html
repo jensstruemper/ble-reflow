@@ -1,7 +1,7 @@
 <ion-header>
 <ion-navbar>
   <ion-title>
-    Devices
+    BLE Devices
   </ion-title>
 </ion-navbar>
 </ion-header>
@@ -17,6 +17,5 @@
       </button>
     </ion-item-sliding>
   </ion-list>
- 
-  <ion-spinner class="center-vertical-horizontal" *ngIf="state=='Scanning'" name="bubbles"></ion-spinner>
+ <ion-spinner padding class="spinner" *ngIf="state=='Scanning'" name="bubbles"></ion-spinner> 
 </ion-content>
