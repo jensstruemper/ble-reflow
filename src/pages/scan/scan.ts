@@ -33,6 +33,7 @@ export class Scan {
   }
 
   connectToDevice(device){
+    this.blecomms.stopScanning();
     this.blecomms.connect(device);
     this.nav.pop();
 

@@ -55,7 +55,7 @@ export class BleComms {
       console.log('Scanning has stopped');
       this.appState('Idle');
     });
-    }, 5000);
+    }, 10000);
 
     console.log('Scanning Started');
     BLE.startScan([]).subscribe(device => {
@@ -66,6 +66,12 @@ export class BleComms {
       console.log("Scan: " + this.device_list);
     });
 
+  }
+
+  stopScanning(){
+    BLE.stopScan().then(() =>  {('Scanning has stopped');
+      this.appState('Idle');
+    });
   }
 
   connect(device) {
